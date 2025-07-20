@@ -11,7 +11,6 @@ app.get("/", (req, res) => {
     absolutePath = __dirname + "/views/index.html";
     res.sendFile(absolutePath);
 })
-
 app.use("/public", express.static(__dirname + "/public"));
 app.get("/json", (req, res) => {
     let message = "Hello json";
@@ -20,8 +19,15 @@ app.get("/json", (req, res) => {
     }
     res.json({ message });
 })
-
-
+app.get("/now", (req, res, next) => {
+    req.time = new Date().toString();
+    next();
+}, (req, res) => {
+    res.json({ time: req.time });
+});
+app.get("/:word/echo", (req, res) => {
+    res.json({ echo: req.params.word });
+});
 
 
 
