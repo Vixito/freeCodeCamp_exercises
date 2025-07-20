@@ -1,6 +1,7 @@
 {
 	"name": "fcc-learn-npm-package-json",
 	"author": "Vixis",
+	"description": "Un proyecto zuculento de freeCodeCamp xdxd",
 	"dependencies": {
 		"express": "^4.14.0"
 	},
