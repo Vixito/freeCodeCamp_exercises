@@ -17,10 +17,9 @@ const createAndSavePerson = (done) => {
     favoriteFoods: ["pizza", "pasta"]
   });
 
-  person.save(function(err, data) {
-    if (err) return done(err);
-    done(null, data);
-  });
+  person.save()
+    .then(data => done(null, data))
+    .catch(err => done(err));
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
