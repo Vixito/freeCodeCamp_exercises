@@ -10,16 +10,18 @@ const personSchema = new mongoose.Schema({
 
 const Person = mongoose.model("Person", personSchema);
 
-const createAndSavePerson = (done) => {
-  const person = new Person({
-    name: "Vixis",
-    age: 23,
-    favoriteFoods: ["pizza", "pasta"]
-  });
-
-  person.save()
-    .then(data => done(null, data))
-    .catch(err => done(err));
+const createAndSavePerson = async (done) => {
+  try {
+    const person = new Person({
+      name: "Vixis",
+      age: 23,
+      favoriteFoods: ["pizza", "pasta"]
+    });
+    const data = await person.save();
+    done(null, data);
+  } catch (error) {
+    done(error);
+  }
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
