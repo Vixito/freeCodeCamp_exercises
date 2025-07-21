@@ -7,21 +7,23 @@ const personSchema = new mongoose.Schema({
   age: { type: Number, required: true },
   favoriteFoods: { type: [String], required: true }
 });
-
 const Person = mongoose.model("Person", personSchema);
+mongoose.connection.on('error', err => {
+  console.error('MongoDB connection error:', err);
+});
+mongoose.connection.once('open', () => {
+  console.log('MongoDB connected');
+});
 
-const createAndSavePerson = async (done) => {
-  try {
-    const person = new Person({
-      name: "Vixis",
-      age: 23,
-      favoriteFoods: ["pizza", "pasta"]
-    });
-    const data = await person.save();
-    done(null, data);
-  } catch (error) {
-    done(error);
-  }
+const createAndSavePerson = (done) => {
+  const person = new Person({
+    name: "Vixis",
+    age: 23,
+    favoriteFoods: ["pizza", "pasta"]
+  });
+  person.save(function(err, data) {
+    done(err, data);
+  });
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
