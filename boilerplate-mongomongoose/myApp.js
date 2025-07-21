@@ -22,45 +22,35 @@ const createAndSavePerson = (done) => {
     favoriteFoods: ["pizza", "pasta"]
   });
   person.save(function(err, data) {
-    if (err) {
-      return done(err);
-    }
+    if (err) return done(err);
     done(null, data);
   });
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
   Person.create(arrayOfPeople, function(err, data) {
-    if (err) {
-      return done(err);
-    }
+    if (err) return done(err);
     done(null, data);
   });
 };
 
 const findPeopleByName = (personName, done) => {
   Person.find({ name: personName }, function(err, data) {
-    if (err) {
-      return done(err);
-    }
+    if (err) return done(err);
     done(null, data);
   });
 };
 
 const findOneByFood = (food, done) => {
   Person.findOne({ favoriteFoods: food }, function(err, data) {
-    if (err) {
-      return done(err);
-    }
+    if (err) return done(err);
     done(null, data);
   });
 };
 
 const findPersonById = (personId, done) => {
   Person.findById(personId, function(err, data) {
-    if (err) {
-      return done(err);
-    }
+    if (err) return done(err);
     done(null, data);
   });
 };
@@ -69,14 +59,10 @@ const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";
 
   Person.findById(personId, function(err, person) {
-    if (err) {
-      return done(err);
-    }
+    if (err) return done(err);
     person.favoriteFoods.push(foodToAdd);
     person.save(function(err, updatedPerson) {
-      if (err) {
-        return done(err);
-      }
+      if (err) return done(err);
       done(null, updatedPerson);
     });
   });
@@ -86,18 +72,14 @@ const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
   
   Person.findOneAndUpdate({ name: personName }, { age: ageToSet }, { new: true }, function(err, data) {
-    if (err) {
-      return done(err);
-    }
+    if (err) return done(err);
     done(null, data);
   });
 };
 
 const removeById = (personId, done) => {
   Person.findByIdAndRemove(personId, function(err, data) {
-    if (err) {
-      return done(err);
-    }
+    if (err) return done(err);
     done(null, data);
   });
 };
@@ -105,10 +87,8 @@ const removeById = (personId, done) => {
 const removeManyPeople = (done) => {
   const nameToRemove = "Mary";
 
-  Person.deleteMany({ name: nameToRemove }, function(err, data) {
-    if (err) {
-      return done(err);
-    }
+  Person.remove({ name: nameToRemove }, function(err, data) {
+    if (err) return done(err);
     done(null, data);
   });
 };
