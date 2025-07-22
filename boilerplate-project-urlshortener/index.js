@@ -29,6 +29,9 @@ let idCounter = 1;
 // POST endpoint to create a short URL
 app.post('/api/shorturl', (req, res) => {
   const originalUrl = req.body.url;
+  if (!/^https?:\/\/.+/i.test(originalUrl)) {
+    return res.json({ error: 'invalid url' });
+  }
 
   // Validate URL format
   try {
@@ -55,7 +58,7 @@ app.get('/api/shorturl/:id', (req, res) => {
   const shortUrl = parseInt(req.params.id);
   const entry = urlDatabase.find(item => item.short_url === shortUrl);
   if (entry) {
-    if (!entry.original_url.startsWith('http://') && !entry.original_url.startsWith('https://')) {
+    if (/^https?:\/\//i.test(entry.original_url)) {
       res.redirect(entry.original_url);
     } else {
       res.status(400).json({ error: 'invalid url' });
