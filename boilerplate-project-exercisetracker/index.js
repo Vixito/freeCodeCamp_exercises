@@ -69,11 +69,11 @@ app.post('/api/users/:_id/exercises', async (req, res) => {
     })
     await exercise.save()
     res.json({
-      _id: exercise._id,
-      userId: exercise.userId,
+      username: user.username,
       description: exercise.description,
       duration: exercise.duration,
-      date: exercise.date.toDateString()
+      date: exercise.date.toDateString(),
+      _id: user._id
     })
   } catch (error) {
     res.status(500).json({ error: 'Error adding exercise' })
