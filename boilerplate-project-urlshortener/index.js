@@ -55,7 +55,7 @@ app.get('/api/shorturl/:id', (req, res) => {
   const shortUrl = parseInt(req.params.id);
   const entry = urlDatabase.find(item => item.short_url === shortUrl);
   if (entry) {
-    if (/^https?:\/\//i.test(entry.original_url)) {
+    if (!entry.original_url.startsWith('http://') && !entry.original_url.startsWith('https://')) {
       res.redirect(entry.original_url);
     } else {
       res.status(400).json({ error: 'invalid url' });
