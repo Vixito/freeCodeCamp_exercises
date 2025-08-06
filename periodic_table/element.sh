@@ -27,3 +27,6 @@ if [[ -z $ELEMENT ]]; then
   exit
 fi
 
+# Separar valores
+IFS="|" read -r ATOMIC_NUMBER NAME SYMBOL MASS MELTING BOILING TYPE <<< "$ELEMENT"
+
