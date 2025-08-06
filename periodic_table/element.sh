@@ -21,3 +21,9 @@ else
   WHERE symbol = INITCAP('$1') OR name = INITCAP('$1');")
 fi
 
+# Validar si existe
+if [[ -z $ELEMENT ]]; then
+  echo "I could not find that element in the database."
+  exit
+fi
+
